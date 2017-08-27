@@ -8,7 +8,7 @@ jenkinsHome "/home/{{ product.owner }}/.jenkins" directory() owner "{{ product.o
 jenkinsLog "/var/log/{{ product.owner }}" directory() owner "{{ product.owner }}" persistent("JENKINS_LOG_DIR") command "deploy"
 pluginDir "{{ product.jenkinsHome }}/plugins"
 
-startCmd "start.sh" start() script() async(waitForFile: "{{ product.jenkinsLog }}/jenkins.log", waitFor: "INFO: Jenkins is fully up and running") user "{{ product.owner }}" id "jenkins"
+startCmd "start.sh" start() script() async(delay: "50s") user "{{ product.owner }}"
 stopScript "stop.sh" stop() script() user "{{ product.owner }}"
 
 http {
